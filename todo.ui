@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TODO</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* ===== Base ===== */
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI";
+    font-size: 13px;
+}
+
+QMainWindow, QWidget {
+    background: #0E1624;
+    color: #DDE3EA;
+}
+
+/* ===== Panels ===== */
+QFrame#headerPanel, QFrame#listPanel {
+    background: #0F1A2C;
+    border: 1px solid #3A4B6B;
+    border-radius: 14px;
+}
+
+/* Title */
+QLabel#titleLabel {
+    font-size: 20px;
+    font-weight: 800;
+    color: #EAF1FF;
+}
+QLabel {
+    background: transparent;
+}cha
+/* Section titles */
+QLabel#sectionTitle {
+    font-size: 14px;
+    font-weight: 800;
+    color: #EAF1FF;
+}
+
+/* Muted labels */
+QLabel#mutedLabel {
+    color: #AFC0D9;
+    font-weight: 600;
+}
+
+/* Inputs */
+QTextEdit {
+    background: #0C1526;
+    border: 1px solid #3A4B6B;
+    border-radius: 10px;
+    padding: 6px 8px;
+    color: #E6EBF2;
+}
+QTextEdit:focus {
+    border: 1px solid #4C8DFF;
+}
+
+/* Buttons */
+QPushButton {
+    background: #17233A;
+    border: 1px solid #2B3A55;
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #E6EBF2;
+    font-weight: 700;
+}
+QPushButton:hover { background: #1C2A45; }
+QPushButton:pressed { background: #111C2F; }
+
+/* Primary Add button */
+QPushButton#pushButton {
+    background: #2B5EFF;
+    border: 1px solid #2B5EFF;
+    color: white;
+}
+QPushButton#pushButton:hover {
+    background: #1E40AF;
+}
+
+/* Scroll */
+QScrollArea {
+    background: transparent;
+    border: none;
+}
+QScrollArea QWidget#scrollAreaWidgetContents {
+    background: transparent;
+}
+QScrollBar:vertical { width: 10px; background: transparent; }
+QScrollBar::handle:vertical {
+    background: #3B4A66;
+    border-radius: 5px;
+    min-height: 24px;
+}
+QScrollBar::handle:vertical:hover { background: #4C5D7A; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }</string>
+  </property>
+
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="rootLayout">
+    <property name="leftMargin"><number>16</number></property>
+    <property name="topMargin"><number>16</number></property>
+    <property name="rightMargin"><number>16</number></property>
+    <property name="bottomMargin"><number>16</number></property>
+    <property name="spacing"><number>12</number></property>
+
+    <!-- Top title -->
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="text">
+       <string>TODO</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignHCenter|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+
+    <!-- Main content: list panel + add panel -->
+    <item>
+     <layout class="QHBoxLayout" name="mainRow">
+      <property name="spacing"><number>12</number></property>
+
+      <!-- LEFT: Todo list panel -->
+      <item>
+       <widget class="QFrame" name="listPanel">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <layout class="QVBoxLayout" name="listPanelLayout">
+         <property name="leftMargin"><number>14</number></property>
+         <property name="topMargin"><number>14</number></property>
+         <property name="rightMargin"><number>14</number></property>
+         <property name="bottomMargin"><number>14</number></property>
+         <property name="spacing"><number>10</number></property>
+
+         <item>
+          <widget class="QLabel" name="sectionTitle">
+           <property name="text">
+            <string>Todos</string>
+           </property>
+          </widget>
+         </item>
+
+         <item>
+          <widget class="QScrollArea" name="scrollArea">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents">
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <property name="leftMargin"><number>0</number></property>
+             <property name="topMargin"><number>0</number></property>
+             <property name="rightMargin"><number>0</number></property>
+             <property name="bottomMargin"><number>0</number></property>
+             <property name="spacing"><number>10</number></property>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+
+        </layout>
+       </widget>
+      </item>
+
+      <!-- RIGHT: Add task panel (headerPanel) -->
+      <item>
+       <widget class="QFrame" name="headerPanel">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <layout class="QVBoxLayout" name="addPanelLayout">
+         <property name="leftMargin"><number>14</number></property>
+         <property name="topMargin"><number>14</number></property>
+         <property name="rightMargin"><number>14</number></property>
+         <property name="bottomMargin"><number>14</number></property>
+         <property name="spacing"><number>10</number></property>
+
+         <item>
+          <widget class="QLabel" name="sectionTitle_2">
+           <property name="text">
+            <string>Add task</string>
+           </property>
+           <property name="objectName">
+            <string>sectionTitle</string>
+           </property>
+          </widget>
+         </item>
+
+         <item>
+          <widget class="QLabel" name="nameLabel">
+           <property name="objectName">
+            <string>mutedLabel</string>
+           </property>
+           <property name="text">
+            <string>Name</string>
+           </property>
+          </widget>
+         </item>
+
+         <item>
+          <widget class="QTextEdit" name="name">
+           <property name="placeholderText">
+            <string>What do you need to do?</string>
+           </property>
+           <property name="minimumHeight">
+            <number>42</number>
+           </property>
+           <property name="maximumHeight">
+            <number>42</number>
+           </property>
+          </widget>
+         </item>
+
+         <item>
+          <widget class="QLabel" name="dueLabel">
+           <property name="objectName">
+            <string>mutedLabel</string>
+           </property>
+           <property name="text">
+            <string>Due date</string>
+           </property>
+          </widget>
+         </item>
+
+         <item>
+          <widget class="QTextEdit" name="due">
+           <property name="placeholderText">
+            <string>Optional (e.g., Tue, Jan 9)</string>
+           </property>
+           <property name="minimumHeight">
+            <number>42</number>
+           </property>
+           <property name="maximumHeight">
+            <number>42</number>
+           </property>
+          </widget>
+         </item>
+
+         <item>
+          <spacer name="spacerGrow">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>Add</string>
+           </property>
+           <property name="minimumHeight">
+            <number>40</number>
+           </property>
+          </widget>
+         </item>
+
+        </layout>
+       </widget>
+      </item>
+
+     </layout>
+    </item>
+
+   </layout>
+  </widget>
+
+  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+
+ <resources/>
+ <connections/>
+</ui>
