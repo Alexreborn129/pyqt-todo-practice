@@ -34,18 +34,19 @@ class todo(QMainWindow):
 
 
     def addTodo(self):
-        print("Added Task: " + "Name: " + self.name.toPlainText() + ", Due Date: " + self.due.toPlainText())
         name = self.name.toPlainText()
-        due = self.due.toPlainText()
+        due = self.due.date()
+        due = due.toString("dd/MM")
+        print("Added Task: " + "Name: " + name + ", Due Date: " + due)
         conn = sqlite3.connect('todo.db')
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM todo")
         count = cursor.fetchone()[0]
         print(f"Currently, the table has {count} rows.")
         cursor.execute("INSERT INTO todo VALUES (?, ?, ?)", (count, name, due))
-        self.verticalLayout.addWidget(TodoItem(self.name.toPlainText(), self.due.toPlainText(), count))
+        self.verticalLayout.addWidget(TodoItem(name, due, count))
         self.name.clear()
-        self.due.clear()
+        # self.due.clear()
         conn.commit()
         conn.close()
 

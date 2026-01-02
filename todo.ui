@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">/* ===== Base ===== */
 * {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI";
+    font-family: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Inter&quot;, &quot;Segoe UI&quot;;
     font-size: 13px;
 }
 
@@ -65,6 +65,16 @@ QTextEdit {
 QTextEdit:focus {
     border: 1px solid #4C8DFF;
 }
+QDateEdit {
+    background: #0C1526;
+    border: 1px solid #3A4B6B;
+    border-radius: 10px;
+    padding: 6px 8px;
+    color: #E6EBF2;
+}
+QDateEdit:focus {
+    border: 1px solid #4C8DFF;
+}
 
 /* Buttons */
 QPushButton {
@@ -105,45 +115,64 @@ QScrollBar::handle:vertical {
 QScrollBar::handle:vertical:hover { background: #4C5D7A; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }</string>
   </property>
-
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="rootLayout">
-    <property name="leftMargin"><number>16</number></property>
-    <property name="topMargin"><number>16</number></property>
-    <property name="rightMargin"><number>16</number></property>
-    <property name="bottomMargin"><number>16</number></property>
-    <property name="spacing"><number>12</number></property>
-
-    <!-- Top title -->
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <property name="leftMargin">
+     <number>16</number>
+    </property>
+    <property name="topMargin">
+     <number>16</number>
+    </property>
+    <property name="rightMargin">
+     <number>16</number>
+    </property>
+    <property name="bottomMargin">
+     <number>16</number>
+    </property>
     <item>
      <widget class="QLabel" name="titleLabel">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	font-size: 35px;
+}</string>
+      </property>
       <property name="text">
        <string>TODO</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignHCenter|Qt::AlignVCenter</set>
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-
-    <!-- Main content: list panel + add panel -->
     <item>
      <layout class="QHBoxLayout" name="mainRow">
-      <property name="spacing"><number>12</number></property>
-
-      <!-- LEFT: Todo list panel -->
+      <property name="spacing">
+       <number>12</number>
+      </property>
       <item>
        <widget class="QFrame" name="listPanel">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
         <layout class="QVBoxLayout" name="listPanelLayout">
-         <property name="leftMargin"><number>14</number></property>
-         <property name="topMargin"><number>14</number></property>
-         <property name="rightMargin"><number>14</number></property>
-         <property name="bottomMargin"><number>14</number></property>
-         <property name="spacing"><number>10</number></property>
-
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <property name="leftMargin">
+          <number>14</number>
+         </property>
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <property name="rightMargin">
+          <number>14</number>
+         </property>
+         <property name="bottomMargin">
+          <number>14</number>
+         </property>
          <item>
           <widget class="QLabel" name="sectionTitle">
            <property name="text">
@@ -151,32 +180,46 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }</s
            </property>
           </widget>
          </item>
-
          <item>
           <widget class="QScrollArea" name="scrollArea">
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
            <property name="horizontalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
            <widget class="QWidget" name="scrollAreaWidgetContents">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>397</width>
+              <height>405</height>
+             </rect>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout">
-             <property name="leftMargin"><number>0</number></property>
-             <property name="topMargin"><number>0</number></property>
-             <property name="rightMargin"><number>0</number></property>
-             <property name="bottomMargin"><number>0</number></property>
-             <property name="spacing"><number>10</number></property>
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
             </layout>
            </widget>
           </widget>
          </item>
-
         </layout>
        </widget>
       </item>
-
-      <!-- RIGHT: Add task panel (headerPanel) -->
       <item>
        <widget class="QFrame" name="headerPanel">
         <property name="minimumSize">
@@ -189,79 +232,102 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }</s
          <enum>QFrame::NoFrame</enum>
         </property>
         <layout class="QVBoxLayout" name="addPanelLayout">
-         <property name="leftMargin"><number>14</number></property>
-         <property name="topMargin"><number>14</number></property>
-         <property name="rightMargin"><number>14</number></property>
-         <property name="bottomMargin"><number>14</number></property>
-         <property name="spacing"><number>10</number></property>
-
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <property name="leftMargin">
+          <number>14</number>
+         </property>
+         <property name="topMargin">
+          <number>14</number>
+         </property>
+         <property name="rightMargin">
+          <number>14</number>
+         </property>
+         <property name="bottomMargin">
+          <number>14</number>
+         </property>
          <item>
-          <widget class="QLabel" name="sectionTitle_2">
+          <widget class="QLabel" name="sectionTitle">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font-size: 25px;
+align-items: center;
+justify-content: center;</string>
+           </property>
            <property name="text">
             <string>Add task</string>
            </property>
-           <property name="objectName">
-            <string>sectionTitle</string>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
-
          <item>
-          <widget class="QLabel" name="nameLabel">
-           <property name="objectName">
-            <string>mutedLabel</string>
+          <widget class="QLabel" name="mutedLabel">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px;
+</string>
            </property>
            <property name="text">
             <string>Name</string>
            </property>
           </widget>
          </item>
-
          <item>
           <widget class="QTextEdit" name="name">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>100</height>
+            </size>
+           </property>
            <property name="placeholderText">
             <string>What do you need to do?</string>
            </property>
-           <property name="minimumHeight">
-            <number>42</number>
-           </property>
-           <property name="maximumHeight">
-            <number>42</number>
-           </property>
           </widget>
          </item>
-
          <item>
-          <widget class="QLabel" name="dueLabel">
-           <property name="objectName">
-            <string>mutedLabel</string>
+          <widget class="QLabel" name="mutedLabel">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px;
+</string>
            </property>
            <property name="text">
             <string>Due date</string>
            </property>
           </widget>
          </item>
-
          <item>
-          <widget class="QTextEdit" name="due">
-           <property name="placeholderText">
-            <string>Format: month, day</string>
+          <widget class="QDateEdit" name="due">
+           <property name="displayFormat">
+            <string>dd/MM</string>
            </property>
-           <property name="minimumHeight">
-            <number>42</number>
-           </property>
-           <property name="maximumHeight">
-            <number>42</number>
+           <property name="calendarPopup">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
-
          <item>
           <spacer name="spacerGrow">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <property name="sizeHint">
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>40</height>
@@ -269,32 +335,32 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }</s
            </property>
           </spacer>
          </item>
-
          <item>
           <widget class="QPushButton" name="pushButton">
            <property name="text">
             <string>Add</string>
            </property>
-           <property name="minimumHeight">
-            <number>40</number>
-           </property>
           </widget>
          </item>
-
         </layout>
        </widget>
       </item>
-
      </layout>
     </item>
-
    </layout>
   </widget>
-
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
-
  <resources/>
  <connections/>
 </ui>
