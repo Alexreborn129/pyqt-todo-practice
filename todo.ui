@@ -245,7 +245,7 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }</s
          <item>
           <widget class="QTextEdit" name="due">
            <property name="placeholderText">
-            <string>Optional (e.g., Tue, Jan 9)</string>
+            <string>Format: month, day</string>
            </property>
            <property name="minimumHeight">
             <number>42</number>
