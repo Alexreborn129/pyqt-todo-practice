@@ -18,12 +18,14 @@ class todo(QMainWindow):
             CREATE TABLE IF NOT EXISTS todo (
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
-            due DATE NOT NULL
+            due DATE NOT NULL,
+            day INTEGER NOT NULL,
+            month INTEGER NOT NULL
             )
         ''')
-        for row in cursor.execute("SELECT * from todo"):
+        for row in cursor.execute("SELECT * FROM TODO ORDER BY month, day;"):
             self.verticalLayout.addWidget(TodoItem(str(row[1]), str(row[2]), row[0]))
-            print(row[1], row[2], row[0])
+            # print(row[1], row[2], row[0])
 
 
 
@@ -37,13 +39,17 @@ class todo(QMainWindow):
         name = self.name.toPlainText()
         due = self.due.date()
         due = due.toString("dd/MM")
-        print("Added Task: " + "Name: " + name + ", Due Date: " + due)
+        # day = self.day
+        # month = self.month
+        # print("Added Task: " + "Name: " + name + ", Due Date: " + due)
         conn = sqlite3.connect('todo.db')
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM todo")
         count = cursor.fetchone()[0]
-        print(f"Currently, the table has {count} rows.")
-        cursor.execute("INSERT INTO todo VALUES (?, ?, ?)", (count, name, due))
+        day = int(due[0:2])
+        month = int(due[3:5])
+        # print(f"Currently, the table has {count} rows.")
+        cursor.execute("INSERT INTO todo VALUES (?, ?, ?, ?, ?)", (count, name, due, day, month))
         self.verticalLayout.addWidget(TodoItem(name, due, count))
         self.name.clear()
         # self.due.clear()

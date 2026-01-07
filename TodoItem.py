@@ -9,11 +9,16 @@ import sqlite3
 class TodoItem(QWidget): 
     
     def __init__(self, name: str, due: str, id: int):
-        print(id)
+        # print(id)
         super().__init__()
         uic.loadUi("TodoItem.ui", self)
         self.name.setText(name)
         self.due.setText(due)
+        date = due[2]
+        day = date[0:2]
+        month = date[3:5]
+        self.day = day
+        self.month = month
         self.id = id
         self.done.stateChanged.connect(self.checked)
         
@@ -22,13 +27,13 @@ class TodoItem(QWidget):
         conn = sqlite3.connect('todo.db')
         cursor = conn.cursor()
         cursor.execute("DELETE FROM todo WHERE id=?", (self.id,))
-        print("DELETED: " + str(self.id))
+        # print("DELETED: " + str(self.id))
         conn.commit()
         conn.close()
         disintegrate_widget_local(self, finished=self.deleteLater)
 
 
-def disintegrate_widget_local(widget, *, tile=8, duration=420, scatter=80, finished=None):
+def disintegrate_widget_local(widget, *, tile=8, duration=350, scatter=80, finished=None):
     """
     Disintegrates ONLY inside `widget` bounds (clipped to widget rect).
     Works best for list items / rows inside layouts.
@@ -89,11 +94,11 @@ def disintegrate_widget_local(widget, *, tile=8, duration=420, scatter=80, finis
             delay = (x + y) // (tile * 2)
 
             sm = QtCore.QSequentialAnimationGroup(overlay)
-            sm.addPause(delay * 6)
+            sm.addPause(delay)
             sm.addAnimation(move)
 
             sf = QtCore.QSequentialAnimationGroup(overlay)
-            sf.addPause(delay * 6)
+            sf.addPause(delay)
             sf.addAnimation(fade)
 
             group.addAnimation(sm)
