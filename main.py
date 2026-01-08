@@ -1,9 +1,11 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QFont
 from PyQt5 import uic
+from PyQt5.QtCore import QDate
 from TodoItem import TodoItem
 from PyQt5.QtCore import Qt
+from datetime import date
 import sqlite3
+# from order import quickOrder
 class todo(QMainWindow):
     def __init__(self):
         super(todo, self).__init__()
@@ -12,6 +14,8 @@ class todo(QMainWindow):
         self.show()
         self.pushButton.setDefault(True)
         self.pushButton.clicked.connect(self.addTodo)
+        today = date.today()
+        self.due.setDate(QDate(2026, today.month, today.day))
         conn = sqlite3.connect('todo.db')
         cursor = conn.cursor()
         cursor.execute('''
@@ -23,17 +27,11 @@ class todo(QMainWindow):
             month INTEGER NOT NULL
             )
         ''')
-        for row in cursor.execute("SELECT * FROM TODO ORDER BY month, day;"):
-            self.verticalLayout.addWidget(TodoItem(str(row[1]), str(row[2]), row[0]))
-            # print(row[1], row[2], row[0])
-
-
-
+        quickOrder(self)
 
         # cursor.execute("DROP TABLE todo")
         # conn.commit()
         # conn.close()
-
 
     def addTodo(self):
         name = self.name.toPlainText()
@@ -51,10 +49,22 @@ class todo(QMainWindow):
         # print(f"Currently, the table has {count} rows.")
         cursor.execute("INSERT INTO todo VALUES (?, ?, ?, ?, ?)", (count, name, due, day, month))
         self.verticalLayout.addWidget(TodoItem(name, due, count))
+        # quickOrder(self)
         self.name.clear()
         # self.due.clear()
         conn.commit()
         conn.close()
+        quickOrder(self)
+
+
+def quickOrder(self):
+    conn = sqlite3.connect('todo.db')
+    cursor = conn.cursor()
+    print(range(self.verticalLayout.count()))
+    for i in reversed(range(self.verticalLayout.count())): 
+        self.verticalLayout.itemAt(i).widget().setParent(None)
+    for row in cursor.execute("SELECT * FROM TODO ORDER BY month, day;"):
+        self.verticalLayout.addWidget(TodoItem(str(row[1]), str(row[2]), row[0]))
 
 
 
